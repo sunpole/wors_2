@@ -4,23 +4,38 @@ document.addEventListener("DOMContentLoaded", () => {
     const SHEET_SONGS = 'Песни'; // Лист с песнями
     const SHEET_LISTS = 'Списки'; // Лист для сохранения плейлистов
 
+    const statusMessage = document.getElementById("status-message");
     const songListElement = document.getElementById("song-list");
     const playlistElement = document.getElementById("playlist");
     const savePlaylistButton = document.getElementById("save-playlist-btn");
     const createPlaylistButton = document.getElementById("create-playlist-btn");
 
-    // URL для работы с Google Sheets API
     const getSheetURL = (sheetName) =>
         `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${sheetName}?key=${API_KEY}`;
 
     const appendSheetURL = (sheetName) =>
         `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${sheetName}:append?valueInputOption=USER_ENTERED&key=${API_KEY}`;
 
+    // Обновление статуса
+    function updateStatus(message, isError = false) {
+        statusMessage.textContent = message;
+        statusMessage.style.color = isError ? "red" : "green";
+    }
+
     // Загрузка списка песен
     async function loadSongs() {
         try {
+            updateStatus("Connecting to Google Sheets...");
             const response = await fetch(getSheetURL(SHEET_SONGS));
+
+            if (!response.ok) {
+                throw new Error(`Error: ${response.status} - ${response.statusText}`);
+            }
+
             const data = await response.json();
+            if (!data.values || data.values.length < 2) {
+                throw new Error("No data found in the sheet or incorrect sheet format.");
+            }
 
             const songs = data.values.slice(1); // Пропускаем заголовок таблицы
             songs.forEach((song) => {
@@ -29,15 +44,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 songItem.textContent = song[0]; // Имя песни в первой колонке
                 songItem.draggable = true;
 
-                // Добавление drag-and-drop
                 songItem.addEventListener("dragstart", (e) => {
                     e.dataTransfer.setData("text/plain", song[0]);
                 });
 
                 songListElement.appendChild(songItem);
             });
+
+            updateStatus("Successfully connected to Google Sheets!");
         } catch (error) {
             console.error("Ошибка загрузки песен:", error);
+            updateStatus(error.message, true);
         }
     }
 
@@ -86,10 +103,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 alert("Плейлист сохранен успешно!");
                 playlistElement.innerHTML = ""; // Очистка текущего плейлиста
             } else {
-                throw new Error("Ошибка сохранения плейлиста.");
+                throw new Error(`Error: ${response.status} - ${response.statusText}`);
             }
         } catch (error) {
             console.error("Ошибка сохранения плейлиста:", error);
+            alert("Не удалось сохранить плейлист. Проверьте консоль для деталей.");
         }
     });
 
