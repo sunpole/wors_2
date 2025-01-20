@@ -1,0 +1,104 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+header {
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+}
+
+main {
+    padding: 1rem;
+}
+
+h1, h2, h3 {
+    margin-bottom: 0.5rem;
+}
+
+/* Song List */
+#song-list-section {
+    margin-bottom: 2rem;
+}
+
+#song-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.song-item {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.song-item:hover {
+    transform: scale(1.05);
+}
+
+/* Playlist Creator */
+#playlist-container {
+    margin-top: 1rem;
+    padding: 1rem;
+    border: 1px dashed #007bff;
+    min-height: 100px;
+    background-color: #e9ecef;
+}
+
+.sortable {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.playlist-item {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    cursor: grab;
+}
+
+/* Saved Playlists */
+#playlists-list {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.playlist-card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    padding: 1rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 300px;
+}
+
+/* Buttons */
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
