@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playlist Manager</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Playlist Manager</h1>
+    </header>
+    
+    <main>
+        <section id="song-list-section">
+            <h2>Song List</h2>
+            <div id="song-list">
+                <!-- Songs loaded dynamically from Google Sheets API -->
+            </div>
+        </section>
+
+        <section id="playlist-creator">
+            <h2>Create a Playlist</h2>
+
+            <label for="playlist-name">Playlist Name:</label>
+            <input type="text" id="playlist-name" placeholder="Enter playlist name" required>
+
+            <label for="creator-name">Your Name:</label>
+            <input type="text" id="creator-name" placeholder="Enter your name" required>
+
+            <button id="create-playlist-btn">Create Playlist</button>
+
+            <div id="playlist-container">
+                <h3>Playlist</h3>
+                <div id="playlist" class="sortable">
+                    <!-- Drag-and-drop songs here -->
+                </div>
+            </div>
+
+            <button id="save-playlist-btn">Save Playlist</button>
+        </section>
+
+        <section id="saved-playlists">
+            <h2>Saved Playlists</h2>
+            <div id="playlists-list">
+                <!-- Saved playlists loaded dynamically from Google Sheets -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Playlist Manager. All rights reserved.</p>
+    </footer>
+</body>
+</html>
